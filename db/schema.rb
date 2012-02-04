@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120202075829) do
+ActiveRecord::Schema.define(:version => 20120204085846) do
+
+  create_table "dashboards", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -34,5 +40,23 @@ ActiveRecord::Schema.define(:version => 20120202075829) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["ido_id"], :name => "index_users_on_ido_id", :unique => true
+
+  create_table "widget_data", :force => true do |t|
+    t.integer  "widget_id"
+    t.text     "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "widgets", :force => true do |t|
+    t.integer  "dashboard_id"
+    t.string   "name"
+    t.string   "data_source"
+    t.string   "data_method"
+    t.string   "data_param"
+    t.string   "refreshed_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

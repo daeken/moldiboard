@@ -1,5 +1,9 @@
 begin
   Rails.application.routes.draw do
+  resources :widgets
+
+  resources :dashboards
+
     bushido_routes
   end
 rescue => e
@@ -7,6 +11,10 @@ rescue => e
   puts "#{e.inspect}"
 end
 Moldiboard::Application.routes.draw do
+  resources :widgets
+
+  resources :dashboards
+
   devise_for :users
 
   # The priority is based upon order of creation:
