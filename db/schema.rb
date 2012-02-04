@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(:version => 20120204085846) do
 
   create_table "dashboards", :force => true do |t|
     t.string   "name"
+    t.boolean  "protected"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -54,7 +55,7 @@ ActiveRecord::Schema.define(:version => 20120204085846) do
     t.string   "data_source"
     t.string   "data_method"
     t.string   "data_param"
-    t.string   "refreshed_at"
+    t.datetime "refreshed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

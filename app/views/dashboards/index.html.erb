@@ -1,0 +1,3 @@
+<%- @dashboards.each do |dashboard| %>
+  <%= link_to dashboard.name, dashboard_path(dashboard) %><br />
+<%- end %>
