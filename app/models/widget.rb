@@ -7,7 +7,7 @@ class Widget < ActiveRecord::Base
   before_validation Proc.new { |widget| widget.refreshed_at ||= 1.year.ago }
   before_validation Proc.new { |widget| widget.source.allowed_method?(widget.data_method) } # Is this an allowed method for the given source?
 
-  attr_accessible :name, :data_source, :data_method, :data_param, :dashboard
+  attr_accessible :name, :data_source, :data_method, :data_param, :data_type, :dashboard
 
   def to_param
     name

@@ -1,6 +1,16 @@
-<h1><%= @dashboard.name %></h1>
+<!--<h1><%= @dashboard.name %></h1>
 <h1>Widgets:</h1>
 <%- @dashboard.widgets.each do |widget| %>
 <h2><%= link_to widget.name, dashboard_widget_path(@dashboard, widget) %></h2>
 <%= widget.to_json %>
-<%- end %>
+<%- end %>-->
+
+<script language="Javascript">
+	dashboard_init(<%= raw({
+			:name => @dashboard.name, 
+			:widgets => @dashboard.widgets.map {|widget|
+				widget[:url] = dashboard_widget_path @dashboard, widget
+				widget
+			}
+	}.to_json) %>);
+</script>
