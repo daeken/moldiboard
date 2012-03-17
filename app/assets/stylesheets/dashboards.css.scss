@@ -5,3 +5,19 @@
 body {
 	margin: 0;
 }
+
+.widget {
+	position: absolute;
+	border: 1px solid black;
+}
+
+.widget-title {
+	height: 24px;
+}
+
+.numeric-main {
+	font-size: 60pt;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+}
