@@ -58,7 +58,8 @@ class Text
 			@carousel = data.widget_data[0].value
 			if !@rendering
 				@render()
-				do_every @render, 10
+				do_every 10, @render
+				@rendering = true
 			
 		error = () ->
 			print 'fail' # XXX: This should throw a caution sign on the widget
