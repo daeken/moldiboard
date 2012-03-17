@@ -5,6 +5,7 @@ print = console.log.bind console
 do_every = (delay, cb) ->
 	setInterval cb, delay * 1000
 
+numeric_offset = 0
 class Numeric
 	constructor: (@def) ->
 		for name of @def
@@ -15,6 +16,8 @@ class Numeric
 	
 	initialize: ->
 		@titleWidget.text @name
+		@container.css('top', numeric_offset + 'px')
+		numeric_offset += 300
 		@container.css('width', '250px').css('height', '250px')
 		@container.append(@valueWidget = $('<div class="numeric-main" style="width: 250px; height: 226px;"></div>'))
 
@@ -30,6 +33,7 @@ class Numeric
 	render: (data) ->
 		@valueWidget.text data.widget_data[0].value
 
+text_offset = 0
 class Text
 	constructor: (@def) ->
 		for name of @def
@@ -41,6 +45,8 @@ class Text
 	initialize: ->
 		@titleWidget.text @name
 		@container.css('left', '400px')
+		@container.css('top', text_offset + 'px')
+		text_offset += 300
 		@container.css('width', '500px').css('height', '250px')
 		@container.append(@valueWidget = $('<div class="text-main" style="width: 500px; height: 226px;"></div>'))
 		@carousel = []
@@ -50,19 +56,20 @@ class Text
 	update: =>
 		success = (data) =>
 			@carousel = data.widget_data[0].value
-			@render data if !@rendering
+			if !@rendering
+				@render()
+				do_every @render, 10
 			
 		error = () ->
 			print 'fail' # XXX: This should throw a caution sign on the widget
 		
 		$.ajax @url, {dataType: 'json', success: success, error: error}
 	
-	render: (data) =>
-		if @carousel.length > 0
-			@carouselCurrent = 0 if @carouselCurrent >= @carousel.length
-			@valueWidget.text @carousel[@carouselCurrent].text
-			@carouselCurrent = (@carouselCurrent + 1) % @carousel.length
-		do_every 10, @render
+	render: =>
+		return if @carousel.length == 0
+		@carouselCurrent = 0 if @carouselCurrent >= @carousel.length
+		@valueWidget.text @carousel[@carouselCurrent].text
+		@carouselCurrent = (@carouselCurrent + 1) % @carousel.length
 
 build_widget = (def) ->
 	def.container = $('<div id="widget_' + def.id + '" class="widget">')
